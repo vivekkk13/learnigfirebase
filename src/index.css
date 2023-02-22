@@ -1,13 +1,97 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+label {
+  margin-bottom: 10px;
+  margin-top: 25px;
+  display: block !important;
+}
+
+input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  width: 250px;
+  border-radius: 4px;
+}
+input:focus-visible {
+  outline: none;
+}
+
+.btn_ {
+  margin-top: 60px;
+  background-color: #6666a9;
+  color: white;
+  padding: 10px 30px;
+  border: 1px solid none;
+  border: 1 px solid;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.btn_div {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.btn {
+  margin-top: 60px;
+  background-color: #6666a9;
+  color: white;
+  padding: 10px 30px;
+  border: 1px solid none;
+  border: 1 px solid;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.listing {
+  margin-top: 34px;
+  padding: 15px 129px;
+}
+h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.navbar_color {
+  background-color: darkgray;
+}
+.h1_ {
+  margin-top: 40px;
+}
+.span_ {
+  background-color: lightgray;
+  padding: 5px 17px;
+  margin-left: 16px;
+}
+.books_details {
+  padding: 15px 3px;
+}
+.info_main {
+  margin-top: 30px;
+  padding: 16px 128px;
+}
+.info_p {
+  font-size: 20px;
+  font-weight: 400;
+}
+.info_span {
+  margin-left: 13px;
+  color: #00000099;
+  font-size: 20px;
+}
+.no_books {
+  text-align: center;
+  margin-top: 30px;
+}
+.btn_list {
+  margin-top: 60px;
+  background-color: #6666a9;
+  color: white;
+  padding: 5px 10px;
+  font-size: 17px;
+  margin-left: 12px;
+  border: 1px solid white;
+  border-radius: 5px;
+  text-align: center;
 }
