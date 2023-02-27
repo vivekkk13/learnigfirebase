@@ -1,11 +1,23 @@
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { async } from "@firebase/util";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { app } from "../components/firebase";
+import Navbars from "./Navbar";
 
 const firestore = getFirestore(app);
 
 const Index = () => {
+  const { id } = useParams();
+  const [editItem, setEditItem] = useState([]);
   const [data, setData] = useState({
     title: null,
     author: null,
@@ -17,7 +29,6 @@ const Index = () => {
   This function store the book details in firebase using adddoc funtion
   
   */
-
   const putData = async () => {
     const result = await addDoc(collection(firestore, "books"), {
       title: data.title,
@@ -26,10 +37,38 @@ const Index = () => {
     });
   };
 
+  /*
+
+ Get data by id for edit
+
+ */
+
+  const getItem = async () => {
+    const result = doc(firestore, "books", id);
+    const getdata = await getDoc(result);
+    setData(getdata.data());
+  };
+
+  /*
+  set Data that is edited
+  */
+
+  const editableData = async () => {
+    const result = await setDoc(doc(firestore, "books", id), {
+      title: data.title,
+      author: data.author,
+      price: data.price,
+    });
+  };
+  useEffect(() => {
+    getItem();
+  }, []);
+
   return (
     <>
+      <Navbars />
       <div class="form-group">
-        <h1 className="h1_">Add Book</h1>
+        <h1 className="h1_">{id ? "Edit book" : "Add Book"}</h1>
         <div>
           <label for="input-field">Title:</label>
           <input
@@ -78,15 +117,24 @@ const Index = () => {
         <button
           className="btn_"
           onClick={() => {
-            putData();
-            setData({
-              title: "",
-              author: "",
-              price: "",
-            });
+            if (id) {
+              editableData();
+              setData({
+                title: "",
+                author: "",
+                price: "",
+              });
+            } else {
+              putData();
+              setData({
+                title: "",
+                author: "",
+                price: "",
+              });
+            }
           }}
         >
-          Submit
+          {id ? "Edit" : "Submit"}
         </button>
       </div>
     </>

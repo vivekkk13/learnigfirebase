@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { app } from "./firebase";
+import Navbars from "./Navbar";
 
 const firestore = getFirestore(app);
 
@@ -45,6 +46,7 @@ This function delete the particular book that is refering to the given id using 
   if (listing?.length == 0)
     return (
       <>
+        <Navbars />
         <h5 className="no_books">
           No Books Right Now Please Add One....{" "}
           <button className="btn_list" onClick={() => navigate("/addbook")}>
@@ -56,6 +58,7 @@ This function delete the particular book that is refering to the given id using 
   else {
     return (
       <>
+        <Navbars />
         <div className="listing">
           <h3>Books Listing:</h3>
           <Table bordered>
@@ -79,6 +82,12 @@ This function delete the particular book that is refering to the given id using 
 
                     <td>{item.data().price}</td>
                     <td style={{ cursor: "pointer", width: "1px" }}>
+                      <span
+                        className="span_"
+                        onClick={() => navigate(`/addbook/${item.id}`)}
+                      >
+                        Edit
+                      </span>
                       <span
                         onClick={(e) => navigate(`/books/view/${item.id}`)}
                         className="span_"

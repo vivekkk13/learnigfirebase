@@ -2,6 +2,7 @@ import { getFirestore, getDoc, doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { app } from "./firebase";
+import Navbars from "./Navbar";
 const firestore = getFirestore(app);
 
 const Information = () => {
@@ -30,6 +31,7 @@ const Information = () => {
 
   return (
     <>
+      <Navbars />
       <div className="info_main">
         <h4>Book Details:</h4>
         <div className="books_details">
