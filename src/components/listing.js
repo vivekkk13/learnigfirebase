@@ -16,13 +16,14 @@ const firestore = getFirestore(app);
 const Listing = () => {
   const navigate = useNavigate();
   const [listing, setListing] = useState([]);
+  const addId = localStorage.getItem("id");
 
   /*
   This function get all books that is in our collection using adddocs funtion
   */
 
   const getBooks = async () => {
-    const list = await getDocs(collection(firestore, "books"));
+    const list = await getDocs(collection(firestore, "users", addId, "books"));
     setListing(list.docs);
   };
 
@@ -30,7 +31,7 @@ const Listing = () => {
 This function delete the particular book that is refering to the given id using deleteDoc function of frebase. 
 */
   const deleteById = async (id) => {
-    const ref = doc(firestore, "books", id);
+    const ref = doc(firestore, "users", addId, "books", id);
     const deletedbook = await deleteDoc(ref);
   };
 

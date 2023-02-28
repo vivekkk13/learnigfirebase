@@ -26,7 +26,7 @@ const Navbars = () => {
                     <Nav.Link
                       href="/"
                       style={{ color: "black" }}
-                      onClick={() => localStorage.removeItem("auth")}
+                      onClick={() => localStorage.clear()}
                     >
                       Log Out
                     </Nav.Link>

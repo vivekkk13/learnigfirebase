@@ -5,7 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -25,19 +25,32 @@ const Login = () => {
   });
 
   const login = localStorage.getItem("login");
+
+  /*
+  Function for adding username to the the collection
+  */
+  const addUsername = async (response) => {
+    const result = await setDoc(doc(firestore, "users", response.user.uid), {
+      name: data.name,
+      email: data.email,
+      id: response.user.uid,
+    });
+    console.log("result ==> ", result);
+  };
+
   /*
 Function for creaing user credentials
 */
 
-  const signIn = () => {
+  const signUp = () => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((val) => {
+      .then((data) => {
         localStorage.setItem("auth", "login hu bhai yaar");
-        addUsername();
-        navigate("/listing");
+        addUsername(data);
+        toast.success("SignUp successfull Now You Can login");
       })
       .catch((val) => {
-        toast("Email already in Use");
+        toast.error(val.message);
       });
   };
 
@@ -48,12 +61,14 @@ Function for creaing user credentials
   const LogIn = () => {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((val) => {
+        console.log("values==>", val);
+        console.log("val", val.id);
+        localStorage.setItem("id", val.user.uid);
         localStorage.setItem("auth", "login hu bhai yaar");
         navigate("/listing");
-        toast("login Success");
       })
-      .catch(() => {
-        toast("Invalid Email or Password");
+      .catch((val) => {
+        toast.error(val.message);
       });
   };
 
@@ -69,15 +84,6 @@ Function for creaing user credentials
     });
   };
 
-  /*
-  Function for adding username to the th ecollection
-  */
-  const addUsername = async () => {
-    const result = await addDoc(collection(firestore, "users"), {
-      name: data.name,
-      email: data.email,
-    });
-  };
   return (
     <>
       <Navbars />
@@ -85,21 +91,30 @@ Function for creaing user credentials
         <h4> {login === "bhai login hu" ? <>Login</> : <>Sign Up</>} </h4>
         <div className="login_form">
           <form>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form2Example1">
-                UserName
-              </label>
-              <input
-                type="email"
-                class="form-control"
-                onChange={(e) => {
-                  setData({
-                    ...data,
-                    name: e.target.value,
-                  });
-                }}
-              />
-            </div>
+            {login === "bhai login hu" ? (
+              <></>
+            ) : (
+              <>
+                {
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example1">
+                      UserName
+                    </label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      onChange={(e) => {
+                        setData({
+                          ...data,
+                          name: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                }
+              </>
+            )}
+
             <div class="form-outline mb-4">
               <label class="form-label" for="form2Example1">
                 Email address
@@ -149,7 +164,7 @@ Function for creaing user credentials
                   <button
                     type="button"
                     class="btn btn-primary btn-block mb-4"
-                    onClick={signIn}
+                    onClick={signUp}
                   >
                     Sign up
                   </button>

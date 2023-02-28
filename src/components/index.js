@@ -23,18 +23,22 @@ const Index = () => {
     author: null,
     price: null,
   });
-
+  const addId = localStorage.getItem("id");
+  console.log("id is", addId);
   /*
 
   This function store the book details in firebase using adddoc funtion
   
   */
   const putData = async () => {
-    const result = await addDoc(collection(firestore, "books"), {
-      title: data.title,
-      author: data.author,
-      price: data.price,
-    });
+    const result = await addDoc(
+      collection(firestore, "users", addId, "books"),
+      {
+        title: data.title,
+        author: data.author,
+        price: data.price,
+      }
+    );
   };
 
   /*
@@ -44,7 +48,7 @@ const Index = () => {
  */
 
   const getItem = async () => {
-    const result = doc(firestore, "books", id);
+    const result = doc(firestore, "users", addId, "books", id);
     const getdata = await getDoc(result);
     setData(getdata.data());
   };
@@ -54,7 +58,7 @@ const Index = () => {
   */
 
   const editableData = async () => {
-    const result = await setDoc(doc(firestore, "books", id), {
+    const result = await setDoc(doc(firestore, "users", addId, "books", id), {
       title: data.title,
       author: data.author,
       price: data.price,

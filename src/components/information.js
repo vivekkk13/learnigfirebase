@@ -7,6 +7,7 @@ const firestore = getFirestore(app);
 
 const Information = () => {
   const { id } = useParams();
+  const addId = localStorage.getItem("id");
   const [bookbyId, setBookById] = useState([]);
   /*
 
@@ -14,7 +15,7 @@ const Information = () => {
 
   */
   const getBookById = async () => {
-    const ref = doc(firestore, "books", id);
+    const ref = doc(firestore, "users", addId, "books", id);
     const book = await getDoc(ref);
     setBookById(book.data());
   };
