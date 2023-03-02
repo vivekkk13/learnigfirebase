@@ -9,11 +9,13 @@ const Information = () => {
   const { id } = useParams();
   const addId = localStorage.getItem("id");
   const [bookbyId, setBookById] = useState([]);
+
   /*
 
   This function get single book details by id of its document from firebase
 
   */
+
   const getBookById = async () => {
     const ref = doc(firestore, "users", addId, "books", id);
     const book = await getDoc(ref);
@@ -25,6 +27,7 @@ const Information = () => {
   here i am calling useeffect to run my getBookById function on first render
   
   */
+
   useEffect(() => {
     getBookById();
   }, []);

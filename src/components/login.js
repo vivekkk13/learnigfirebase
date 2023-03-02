@@ -73,7 +73,9 @@ Function for creaing user credentials
   };
 
   /*
-  Function for signup with Google
+  
+Function for signup with Google
+
    */
 
   const signInWithGoogle = () => {
@@ -149,7 +151,6 @@ Function for creaing user credentials
             <div style={{ textAlign: "center" }}>
               {login === "bhai login hu" ? (
                 <>
-                  {" "}
                   <button
                     type="button"
                     class="btn btn-primary btn-block mb-4"
@@ -160,7 +161,6 @@ Function for creaing user credentials
                 </>
               ) : (
                 <>
-                  {" "}
                   <button
                     type="button"
                     class="btn btn-primary btn-block mb-4"

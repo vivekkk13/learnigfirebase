@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import {
   getFirestore,
   collection,
@@ -54,7 +53,9 @@ const Index = () => {
   };
 
   /*
+
   set Data that is edited
+
   */
 
   const editableData = async () => {
